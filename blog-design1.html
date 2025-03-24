@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Design1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #b2c68e;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .container .row {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .container .row h2 {
+            color: #1c1c1c;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .container .card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto; 
+        }
+
+        .container .card img {
+            width: 100%;
+            height: auto; 
+            max-height: 250px;
+            object-fit: cover;
+        }
+
+        .container .card .content {
+            padding: 15px;
+        }
+
+        .container .card .content h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .container .card .content p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .container .card .content a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 700;
+        }
+            
+        @media (max-width: 768px) {
+            .container .card img {
+                max-height: 150px; 
+            }
+
+            .container .card {
+                max-width: 100%; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container .card img {
+                max-height: 120px; 
+            }
+        }
+
+   
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>Our Blog</h2>
+        </div>
+        <div class="card">
+            <img src="images/France.jpg" alt="France">
+            <div class="content">
+                <h3>First Blog</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur earum quibusdam vitae deserunt
+                    eos unde. Iure illo rerum aut sapiente ad porro praesentium atque minus repellendus eum! Minima,
+                    aliquam provident!</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/France.jpg" alt="France">
+            <div class="content">
+                <h3>Second Blog</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur earum quibusdam vitae deserunt
+                    eos unde. Iure illo rerum aut sapiente ad porro praesentium atque minus repellendus eum! Minima,
+                    aliquam provident!</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/France.jpg" alt="France">
+            <div class="content">
+                <h3>Third Blog</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur earum quibusdam vitae deserunt
+                    eos unde. Iure illo rerum aut sapiente ad porro praesentium atque minus repellendus eum! Minima,
+                    aliquam provident!</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

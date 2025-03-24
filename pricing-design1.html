@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Design1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(125deg, #6a11cb, #2575fc);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2575fc;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .card ul li {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .card button {
+            background: #2575fc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .card button:hover {
+            background: #1a5bbf;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Basic</h2>
+        <div class="price">$199.99</div>
+        <ul>
+            <li>500 GB Storage</li>
+            <li>2 Users Allowed</li>
+            <li>Send up to 3 GB</li>
+        </ul>
+        <button>Buy Now</button>
+    </div>
+
+    <div class="card">
+        <h2>Professional</h2>
+        <div class="price">$249.99</div>
+        <ul>
+            <li>1 TB Storage</li>
+            <li>5 Users Allowed</li>
+            <li>Send up to 10 GB</li>
+        </ul>
+        <button>Buy Now</button>
+    </div>
+
+    <div class="card">
+        <h2>Master</h2>
+        <div class="price">$399.99</div>
+        <ul>
+            <li>2 TB Storage</li>
+            <li>10 Users Allowed</li>
+            <li>Send up to 20 GB</li>
+        </ul>
+        <button>Buy Now</button>
+    </div>
+</body>
+
+</html>

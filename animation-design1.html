@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Hover Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style-type: none;
+            border: none;
+            outline: none;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(116, 116, 117);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .container button {
+            padding: 12px 25px;
+            color: #1c1c1c;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .container button::before {
+            content: "";
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background-color: rgb(240, 12, 240);
+            transition: all 0.4s ease;
+        }
+
+        .container button:nth-child(1)::before {
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            transform: translateX(-50%);
+        }
+        .container button:nth-child(1):hover::before {
+            width: 100%;
+        }
+
+        .container button:nth-child(2)::before {
+            bottom: 0;
+            left: -100%;
+        }
+        .container button:nth-child(2):hover::before {
+            left: 0;
+        }
+
+       
+        .container button:nth-child(3)::before {
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            opacity: 0;
+        }
+        .container button:nth-child(3):hover::before {
+            bottom: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button>Center</button>
+        <button>Left</button>
+        <button>Bottom</button>
+    </div>
+</body>
+</html>

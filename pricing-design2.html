@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f7fc;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: auto;
+            flex: 1;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            color: #007bff;
+        }
+
+        .card h4 {
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .card h6 {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            list-style: none;
+            text-align: left;
+            padding: 0;
+            flex-grow: 1;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .details li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .details li span {
+            color: green;
+            font-size: 1.2rem;
+        }
+
+        .card button {
+            background: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: auto;
+        }
+
+        .card button:hover {
+            background: #007bff;
+            color: #fff;
+        }
+
+        .pro-card {
+            border: 1px solid #007bff;
+        }
+        .pro-card h2{
+            color: rgb(182, 172, 85);
+        }
+        .pro-card button{
+            background-color: #007bff;
+            color: #fff;
+        }
+        .pro-card button:hover{
+            background: #007bffc8;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img src="images/gift.png" alt="Gift Icon">
+            <h2>Starter</h2>
+            <h4>Free</h4>
+            <h6>No credit card is required</h6>
+            <ul class="details">
+                <li><span>&#8734;</span> Unlimited leads</li>
+                <li><span>&#10003;</span> Send up to 3,000 emails</li>
+                <li><span>&#10003;</span> MailBluster's branding</li>
+            </ul>
+            <button>Sign Up</button>
+        </div>
+        <div class="card pro-card">
+            <img src="images/crown.png" alt="Crown Icon">
+            <h2>Pro</h2>
+            <h4>$60 / year</h4>
+            <h6>+ $0.60 per 1,000 emails</h6>
+            <ul class="details">
+                <li><span>&#8734;</span> Unlimited leads</li>
+                <li><span>&#10003;</span> Unlimited emails</li>
+                <li><span>&#10003;</span> No MailBluster's branding</li>
+                <li><span>&#10003;</span> Automation</li>
+                <li><span>&#10003;</span> Custom fields</li>
+                <li><span>&#10003;</span> Pro templates</li>
+                <li><span>&#10003;</span> Export leads and reports</li>
+            </ul>
+            <button>Sign Up</button>
+        </div>
+    </div>
+</body>
+</html>

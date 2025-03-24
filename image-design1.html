@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Design1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #84a9a9;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .container{
+            width: 400px;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 15px;
+        }
+        .imgbox{
+            position: relative;
+            width: 100px;
+            height: 420px;
+            border-radius: 10px;
+            transition: all 0.5s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+        }
+        .imgbox:hover{
+            width: 250px;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .imgbox:nth-child(1){
+            background-image: url(images/Dubia.jpg);
+            background-position: center;
+            background-size: cover;
+
+        }
+
+        .imgbox:nth-child(2){
+            background-image: url(images/China.jpg);
+            background-position: center;
+            background-size: cover;
+
+        }
+        .imgbox:nth-child(3){
+            background-image: url(images/America.jpg);
+            background-position: center;
+            background-size: cover;
+
+        }
+        .imgbox:nth-child(4){
+            background-image: url(images/South\ Africa.jpg);
+            background-position: center;
+            background-size: cover;
+
+        }
+        .container .imgbox .content{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 1rem;
+            top: 0;
+            opacity: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        .container .imgbox .content h2{
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            margin-bottom: 8px;
+        }
+        .container .imgbox .content p{
+            font-size: 1rem;
+            font-weight: 500;
+            color: #ccc;
+        }
+        .imgbox:hover .content{
+            opacity: 1;
+            transform: translateY(0);
+        }
+    
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="imgbox">
+            <div class="content">
+                <h2>Dubia</h2>
+                <p>Country if you need to visit come to AirFlight </p>
+            </div>
+        </div>
+
+        <div class="imgbox">
+            <div class="content">
+                <h2>China</h2>
+                <p>Country if you need to visit come to AirFlight </p>
+            </div>
+        </div>
+
+        <div class="imgbox">
+            <div class="content">
+                <h2>America</h2>
+                <p>Country if you need to visit come to AirFlight </p>
+            </div>
+        </div>
+
+        <div class="imgbox">
+            <div class="content">
+                <h2>South Africa</h2>
+                <p>Country if you need to visit come to AirFlight </p>
+            </div>
+        </div>
+
+        
+
+    </div>
+   
+</body>
+
+</html>

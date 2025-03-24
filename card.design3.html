@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Design3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #8c99c4;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            position: relative;
+            background: #fff;
+            max-width: 300px;
+            width: 100%;
+            height: 420px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 0;
+            background-color: rgb(241, 17, 17);
+            height: 100%;
+            width: 100%;
+            transform: skewY(345deg);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover::before {
+            top: -70%;
+            transform: skewY(390deg);
+        }
+
+        .card .img_box {
+            position: relative; 
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .card .img_box img {
+            max-width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .card:hover .img_box img {
+            max-width: 80%;
+        }
+
+        .card .content {
+            position: relative; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding-top: 25px;
+            gap: 2px;
+            z-index: 1; 
+        }
+
+        .card .content h2 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #1c1c1c;
+        }
+
+        .card .content h4 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: rgb(241, 17, 17);
+        }
+
+        .card .content a {
+            display: inline-block;
+            background-color: rgb(241, 17, 17);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-top: 200px;
+        }
+
+        .card:hover .content a {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="img_box">
+            <img src="images/Headphone.png" alt="">
+        </div>
+        <div class="content">
+            <h2>HeadPhone</h2>
+            <h4>$40.<small>99</small></h4>
+            <a href="#">Buy Now</a>
+        </div>
+    </div>
+</body>
+
+</html>

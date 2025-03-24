@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Design1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style-type: none;
+            outline: none;
+            border: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .footer_top {
+            padding: 40px 80px;
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer_top .parts {
+            border: none;
+        }
+
+        .footer_top .parts h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer_top .parts h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: #4a90e2;
+        }
+
+        .footer_top .parts ul li {
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .footer_top .parts ul li a {
+            color: #9e9e9e;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer_top .parts ul li a:hover {
+            color: #4a90e2;
+        }
+
+        .parts.social ul {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .parts.social ul li {
+            margin: 5px 0;
+        }
+
+        .parts.social ul li a img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .parts.social p {
+            color: #9e9e9e;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer_center {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px 80px;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .left_center h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .left_center p {
+            color: #9e9e9e;
+            font-size: 0.85rem;
+        }
+
+        .button button {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid #4a90e2;
+            color: #4a90e2;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button button:hover {
+            background: #4a90e2;
+            color: #fff;
+        }
+
+        .footer_bottom {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px 80px;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .left_bottom {
+            color: #9e9e9e;
+            font-size: 0.9rem;
+        }
+
+        .right_bottom {
+            display: flex;
+            gap: 20px;
+        }
+
+        .right_bottom a {
+            color: #9e9e9e;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .right_bottom a:hover {
+            color: #4a90e2;
+        }
+
+        @media (max-width: 768px) {
+
+            .footer_top,
+            .footer_center,
+            .footer_bottom {
+                padding: 20px;
+            }
+
+            .footer_center,
+            .footer_bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+        @media (max-width:600px){
+            .footer_top .parts:not(.social) h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row-reverse;
+            }
+
+            .footer_top .parts:not(.social) h3::before {
+                content: '+';
+                font-size: 1.2rem;
+                margin-right: 10px;
+            }
+
+            .footer_top .parts:not(.social) h3.active::before {
+                content: '-';
+            }
+        
+            .footer_top .parts:not(.social) ul {
+                display: none;
+            }
+            .footer_top .social h3{
+                text-align: center;
+            }
+            .footer_top .social h3::after{
+                left: 28%;
+            }
+ 
+            .footer_top .social ul{
+                justify-items: center;
+            }
+
+
+            .footer_top .parts:not(.social) ul.active {
+                display: block;
+            }
+           
+        }
+    </style>
+</head>
+
+<body>
+    <footer>
+
+        <div class="footer_top">
+            <div class="parts">
+                <h3>TOOLS</h3>
+                <ul>
+                    <li><a href="#">AI Image Generator</a></li>
+                    <li><a href="#">AI Video Generator</a></li>
+                    <li><a href="#">Image Upscaler</a></li>
+                    <li><a href="#">Background Remover</a></li>
+                    <li><a href="#">Photo Editor</a></li>
+                    <li><a href="#">AI Voice Generator</a></li>
+                    <li><a href="#">All Freepik Tools</a></li>
+                </ul>
+            </div>
+
+            <div class="parts">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Sell Content</a></li>
+                    <li><a href="#">Freepik Brand Guidelines</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Search Trends</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="parts">
+                <h3>LEGAL</h3>
+                <ul>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">License Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Copyright Information</a></li>
+                    <li><a href="#">Cookies Policy</a></li>
+                    <li><a href="#">Cookies Settings</a></li>
+                </ul>
+                <div class="parts">
+                    <h3>SUPPORT</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="parts social">
+                <h3>SOCIAL MEDIA</h3>
+                <ul>
+                    <li><a href="#"><img src="images/facebook_1384053.png" alt="Facebook"></a></li>
+                    <li><a href="#"><img src="images/twitter-alt-square_12107611.png" alt="X"></a></li>
+                    <li><a href="#"><img src="images/pinterest_3536559.png" alt="Pinterest"></a></li>
+                    <li><a href="#"><img src="images/instagram_2111463.png" alt="Instagram"></a></li>
+                    <li><a href="#"><img src="images/youtube_3938026.png" YouTube"></a></li>
+                    <li><a href="#"><img src="images/linkedin_3536505.png" alt="LinkedIn"></a></li>
+                    <li><a href="#"><img src="images/communication_14857399.png" alt="Discord"></a></li>
+                    <li><a href="#"><img src="images/reddit_3536761.png" alt="Reddit"></a></li>
+                </ul>
+                <p>Get exclusive assets sent straight to your inbox</p>
+            </div>
+        </div>
+
+        <div class="footer_center">
+
+            <div class="left_center">
+                <h2>FREEPIK</h2>
+                <p>Copyright © 2010-2025 Freepik Company S.L. All rights reserved.</p>
+            </div>
+            <div class="button">
+                <button>English</button>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="footer_bottom">
+            <div class="left_bottom">
+                Freepik Company projects
+            </div>
+            <div class="right_bottom">
+                <a href="#">Freepik</a>
+                <a href="#">Slidesgo</a>
+                <a href="#">Magnific</a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const headers = document.querySelectorAll('.footer_top .parts:not(.social) h3');
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const ul = header.nextElementSibling;
+                    header.classList.toggle('active');
+                    ul.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

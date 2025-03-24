@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Design4</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #e2b2fe, #c490ff);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+          
+        }
+
+        .card .circle {
+            height: 50px;
+            width: 50px;
+            background: #0451df;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .circle {
+            box-shadow: 0 0 0 400px #0451df;
+            background: #0451df;
+        }
+
+        .card:hover .content {
+            color: #fff;
+        }
+
+        .card .content {
+            z-index: 1;
+            position: relative;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .card .content h2 {
+            font-weight: 700;
+            text-transform: capitalize;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .card .content p {
+            font-weight: 400;
+            text-transform: capitalize;
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        .card .content a {
+            margin-top: 10px;
+            font-size: 1rem;
+            padding: 0.6rem 1.2rem;
+            background-color: #0451df;
+            color: #fff;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="circle">01</div>
+        <div class="content">
+            <h2>Service 1</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nisi sunt voluptatem, sequi facilis provident totam maxime.</p>
+            <a href="#">Read More</a>
+        </div>
+    </div>
+</body>
+
+</html>

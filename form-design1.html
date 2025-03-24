@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Form Design1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url(images/China.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .overlay{
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .container{
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+        .container h2{
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 5px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .container form .form_group{
+            margin-bottom: 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .container form .form_group input{
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            padding: 8px 30px;
+            font-size: 14px;
+            background: transparent;
+            transition: border-color 0.3s ease;
+        }
+        .container form .form_group input:focus {
+            border-bottom-color: #007BFF;
+        }
+        .container form .form_group span{
+            position: absolute;
+            left: 30px;
+            top: 10px;
+            transition: 0.3s ease;
+            color: #999;
+            pointer-events: none;
+        }
+        .container form .form_group .icon{
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            color: #999;
+        }
+        .container form .form_group input:focus ~ span,
+        .container form .form_group input:valid ~ span{
+            top: -8px;
+            font-size: 12px;
+            color: #007BFF;
+        }
+        .container form .form_group input:focus ~ .icon {
+            color: #007BFF;
+        }
+        .container form .form_group button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .container form .form_group button:hover {
+            background: #0056b3;
+        }
+        .container form .form_group.checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .container form .form_group.checkbox input {
+            width: auto;
+        }
+        .container form .form_group.checkbox span {
+            position: static;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h2>LOG IN</h2>
+        <form>
+            <div class="form_group">
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <input type="text" required>
+                <span>Username</span>
+            </div>
+            <div class="form_group">
+                <div class="icon">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <input type="password" required>
+                <span>Password</span>
+            </div>
+            <div class="form_group checkbox">
+                <input type="checkbox">
+                <span>Remember me</span>
+            </div>
+            <div class="form_group">
+              <button>Login</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

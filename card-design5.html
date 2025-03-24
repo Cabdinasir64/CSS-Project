@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Design5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ffc11c, #ff7b1c);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            height: 450px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        .card .imgBx {
+            background: #050d39;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+        }
+
+        .card .imgBx::before {
+            content: 'Nike';
+            position: absolute;
+            bottom: 5%;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffffff69;
+        }
+
+        .card .imgBx img {
+            width: 800px;
+            transform: rotate(10deg);
+            transition: transform 0.3s;
+        }
+
+        .card .details {
+            width: 50%;
+            height: 100%;
+            padding: 1.5rem;
+        }
+
+        .card .details h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .card .details h2 span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ff7b1c;
+        }
+
+        .card .details p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 8px;
+        }
+
+        .card .details .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .card .details .footer h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ff7b1c;
+        }
+
+        .card .details .footer a {
+            padding: 6px 10px;
+            background-color: #ff7b1c;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .card .details .footer a:hover {
+            background-color: #e66910;
+        }
+
+        @media (max-width: 420px) {
+            .card {
+                height: auto;
+                flex-direction: column;
+            }
+
+            .card .imgBx {
+                width: 100%;
+                height: 220px;
+                border-top-right-radius: 16px;
+                border-bottom-left-radius: 0;
+            }
+            .card .imgBx::before{
+                font-size: 2rem;
+            }
+
+            .card .imgBx img {
+                width: 100%;
+                transform: rotate(50deg);
+            }
+
+            .card .details {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="imgBx">
+            <img src="images/shoes.png">
+        </div>
+        <div class="details">
+            <h2>Nike Shoes<br><span>Collection Fashion</span></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, suscipit magni?</p>
+            <div class="footer">
+                <h5>$150.99</h5>
+                <a href="#">Buy Now</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

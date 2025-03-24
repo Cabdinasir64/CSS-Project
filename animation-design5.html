@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Design5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style-type: none;
+            border: none;
+            outline: none;
+        }
+
+        body {
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(40, 40, 168);
+        }
+        .container{
+            padding: 20px;
+            background-color: #535353;
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container .skeleton1{
+            background-color: #808080;
+            width: 100%;
+            height: 150px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container .skeleton1::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        .container .skeleton2{
+            width: 100%;
+            height: 80px;
+            background-color: #808080;
+            border-radius: 5px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container .skeleton2::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="skeleton1"></div>
+        <div class="skeleton2"></div>
+    </div>
+
+   
+</body>
+
+</html>

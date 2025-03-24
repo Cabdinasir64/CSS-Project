@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+    <title>School Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="bg-[#1E293B] w-64 min-h-screen fixed left-0 text-white">
+            <div class="p-4 border-b border-gray-600 flex items-center space-x-4">
+                <img id="sidebarProfileImage" class="w-10 h-10 rounded-full object-cover" src="default-avatar.png" alt="Profile">
+                <div>
+                    <h2 id="sidebarUsername" class="text-lg font-semibold">User Name</h2>
+                    <p id="sidebarRole" class="text-sm text-gray-400">Admin</p>
+                </div>
+            </div>
+            
+            <nav class="mt-6">
+                <!-- Dashboard -->
+                <div class="px-4 py-2">
+                    <button onclick="openTab('dashboard')" class="active-tab w-full flex items-center space-x-2 p-3 rounded-lg hover:bg-blue-600 transition-all">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </button>
+                </div>
+
+                <!-- Students Section -->
+                <div class="px-4 py-2">
+                    <button onclick="toggleSubmenu('studentMenu')" class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-blue-600 transition-all">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Students</span>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="studentMenu" class="hidden pl-4 mt-2 space-y-2">
+                        <button onclick="openTab('listStudents')" class="w-full text-left p-2 rounded-lg hover:bg-blue-600 transition-all">List Students</button>
+                        <button onclick="openTab('addStudent')" class="w-full text-left p-2 rounded-lg hover:bg-blue-600 transition-all">Add Student</button>
+                    </div>
+                </div>
+
+                <!-- Teachers Section -->
+                <div class="px-4 py-2">
+                    <button onclick="toggleSubmenu('teacherMenu')" class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-blue-600 transition-all">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Teachers</span>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div id="teacherMenu" class="hidden pl-4 mt-2 space-y-2">
+                        <button onclick="openTab('listTeachers')" class="w-full text-left p-2 rounded-lg hover:bg-blue-600 transition-all">List Teachers</button>
+                        <button onclick="openTab('addTeacher')" class="w-full text-left p-2 rounded-lg hover:bg-blue-600 transition-all">Add Teacher</button>
+                    </div>
+                </div>
+
+                <!-- Classes -->
+                <div class="px-4 py-2">
+                    <div class="sidebar-item group">
+                        <button onclick="toggleSubmenu('classesSubmenu')" 
+                                class="flex items-center justify-between w-full p-2 hover:bg-blue-600  rounded-lg transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Classes</span>
+                            </div>
+                            <i class="fas fa-chevron-down transform transition-transform duration-200"></i>
+                        </button>
+                        <div id="classesSubmenu" class="hidden pl-8 mt-2 space-y-2">
+                            <a href="#" onclick="openTab('listClasses')" 
+                               class="block py-2 px-3  hover:bg-blue-600 rounded-lg transition-colors">
+                                View Classes
+                            </a>
+                            <a href="#" onclick="openTab('addClass')" 
+                               class="block py-2 px-3 hover:bg-blue-600 rounded-lg transition-colors">
+                                Add Class
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance -->
+                <div class="px-4 py-2">
+                    <button onclick="openTab('attendance')" class="w-full flex items-center space-x-2 p-3 rounded-lg hover:bg-blue-600 transition-all">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Attendance</span>
+                    </button>
+                </div>
+
+                <!-- Profile Settings -->
+                <div class="px-4 py-2">
+                    <button onclick="openTab('profile')" class="w-full flex items-center space-x-2 p-3 rounded-lg hover:bg-blue-600 transition-all">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profile Settings</span>
+                    </button>
+                </div>
+
+                <!-- Logout -->
+                <div class="px-4 py-2 mt-auto">
+                    <button onclick="handleLogout()" class="w-full flex items-center space-x-2 p-3 text-red-500 hover:bg-red-600 hover:text-white rounded-lg transition-all">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="ml-64 flex-1">
+            <!-- Top Navigation -->
+            <div class="bg-white shadow-md p-4 flex justify-between items-center">
+                <h1 id="pageTitle" class="text-xl font-bold">Dashboard</h1>
+                
+                <!-- Search Bar -->
+                <div class="flex items-center bg-gray-100 rounded-full px-4 py-2">
+                    <input type="text" id="searchInput" placeholder="Search..." class="bg-transparent outline-none w-64">
+                    <i class="fas fa-search text-gray-500 ml-2"></i>
+                </div>
+
+                <!-- Profile Menu -->
+                <div class="relative">
+                    <button onclick="toggleProfile()" class="flex items-center space-x-2">
+                        <img id="topProfileImage" class="w-10 h-10 rounded-full object-cover" src="default-avatar.png" alt="Profile">
+                    </button>
+                    <div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                        <a href="#" onclick="openTab('profile')" class="block px-4 py-2 hover:bg-gray-100">Profile Settings</a>
+                        <hr class="my-2">
+                        <button onclick="handleLogout()" class="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content">
+                    <!-- Quick Stats Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- Total Students Card -->
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-white/80 text-sm">Wadarta Ardayda</p>
+                                    <h3 class="text-3xl font-bold mt-2" id="totalStudents">0</h3>
+                                    <p class="text-white/80 text-sm mt-2">
+                                        <span class="text-green-300">↑ 12%</span> Bishii hore
+                                    </p>
+                                </div>
+                                <div class="bg-white/20 p-3 rounded-lg">
+                                    <i class="fas fa-user-graduate text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Teachers Card -->
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-white/80 text-sm">Wadarta Macalimiinta</p>
+                                    <h3 class="text-3xl font-bold mt-2" id="totalTeachers">0</h3>
+                                    <p class="text-white/80 text-sm mt-2">
+                                        <span class="text-green-300">↑ 5%</span> Bishii hore
+                                    </p>
+                                </div>
+                                <div class="bg-white/20 p-3 rounded-lg">
+                                    <i class="fas fa-chalkboard-teacher text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Classes Card -->
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-white/80 text-sm">Wadarta Fasalada</p>
+                                    <h3 class="text-3xl font-bold mt-2" id="totalClasses">0</h3>
+                                    <p class="text-white/80 text-sm mt-2">
+                                        <span class="text-green-300">=</span> Bishii hore
+                                    </p>
+                                </div>
+                                <div class="bg-white/20 p-3 rounded-lg">
+                                    <i class="fas fa-school text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Rate Card -->
+                        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl p-6 text-white">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-white/80 text-sm">Xaadiritaanka Maanta</p>
+                                    <h3 class="text-3xl font-bold mt-2" id="attendanceRate">0%</h3>
+                                    <p class="text-white/80 text-sm mt-2">
+                                        <span class="text-red-300">↓ 3%</span> Shalay
+                                    </p>
+                                </div>
+                                <div class="bg-white/20 p-3 rounded-lg">
+                                    <i class="fas fa-calendar-check text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Enrollment Trends -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg font-semibold text-gray-800">Diiwaangelinta Ardayda</h3>
+                                <select class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                    <option>6 Bilood</option>
+                                    <option>Sannad</option>
+                                </select>
+                            </div>
+                            <canvas id="enrollmentChart" height="300"></canvas>
+                        </div>
+
+                        <!-- Attendance Overview -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg font-semibold text-gray-800">Xaadiritaanka Fasalada</h3>
+                                <select class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm">
+                                    <option>Maanta</option>
+                                    <option>Toddobaadkan</option>
+                                </select>
+                            </div>
+                            <canvas id="attendanceChart" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="mt-8 bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Dhaqdhaqaaqa Ugu Dambeeyay</h3>
+                        <div class="space-y-4">
+                            <!-- Activity Items -->
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-user-plus text-blue-500"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-800">Arday Cusub oo la Diiwaangeliyay</p>
+                                    <p class="text-xs text-gray-500">2 Saac ka hor</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div class="bg-green-100 p-3 rounded-full">
+                                    <i class="fas fa-clipboard-check text-green-500"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-800">Xaadiritaanka Fasalka A1 la Dhammeeyay</p>
+                                    <p class="text-xs text-gray-500">3 Saac ka hor</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                <div class="bg-purple-100 p-3 rounded-full">
+                                    <i class="fas fa-book text-purple-500"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-800">Jadwalka Fasalka la Cusbooneysiiyay</p>
+                                    <p class="text-xs text-gray-500">5 Saac ka hor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List Students Tab -->
+                <div id="listStudents" class="tab-content hidden">
+                    <div class="bg-white rounded-lg shadow-md">
+                        <div class="p-4 border-b flex justify-between items-center">
+                            <h2 class="text-xl font-bold">Students List</h2>
+                            <div class="flex space-x-4">
+                                <div class="relative">
+                                    <input type="text" id="studentSearch" 
+                                           class="px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                           placeholder="Search students...">
+                                </div>
+                                <button onclick="openTab('addStudent')" 
+                                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Add New Student</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Level</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Grade</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Gender</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentsList" class="divide-y divide-gray-200">
+                                    <!-- Students will be loaded here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Student Tab -->
+                <div id="addStudent" class="tab-content hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold">Add New Student</h2>
+                            <button onclick="openTab('listStudents')" 
+                                    class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <form id="addStudentForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                    <input type="text" id="studentName" required
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Grade Level</label>
+                                    <select id="studentGrade" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Dooro Heerka</option>
+                                        <option value="HOO">Dugsiga Hoose</option>
+                                        <option value="DHA">Dugsiga Dhexe</option>
+                                        <option value="SAR">Dugsiga Sare</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Classroom</label>
+                                    <select id="studentClassroom" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Dooro Fasalka</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Gender</label>
+                                    <select id="studentGender" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Dooro Jinsiga</option>
+                                        <option value="Lab">Lab</option>
+                                        <option value="Dhedig">Dhedig</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Parent Email</label>
+                                    <input type="email" id="parentEmail" required
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            
+                            <!-- Add Submit Button -->
+                            <div class="flex justify-end space-x-4 mt-6">
+                                <button type="button" onclick="openTab('listStudents')"
+                                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                        class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Add Student</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Edit Student Modal -->
+                <div id="editStudentModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <h3 class="text-lg font-bold mb-4">Edit Student</h3>
+                        <form id="editStudentForm" class="space-y-4">
+                            <input type="hidden" id="editStudentId">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="editStudentName" required
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Class</label>
+                                <select id="editStudentClass" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">Dooro Fasalka</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Gender</label>
+                                <select id="editStudentGender" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Parent Email</label>
+                                <input type="email" id="editParentEmail" required
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="closeEditModal()"
+                                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Profile Settings Tab -->
+                <div id="profile" class="tab-content hidden">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Profile Header -->
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <div class="flex items-center space-x-6">
+                                <div class="relative">
+                                    <img id="profilePreview" class="w-32 h-32 rounded-full object-cover border-4 border-blue-500" 
+                                         src="default-avatar.png" alt="Profile Picture">
+                                    <label class="absolute bottom-0 right-0 bg-blue-500 p-2 rounded-full cursor-pointer hover:bg-blue-600 transition-colors">
+                                        <i class="fas fa-camera text-white"></i>
+                                        <input type="file" id="profileImage" class="hidden" accept="image/*">
+                                    </label>
+                                </div>
+                                <div>
+                                    <h2 id="profileName" class="text-2xl font-bold">User Name</h2>
+                                    <p id="profileEmail" class="text-gray-600">user@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile Form -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-bold mb-6">Profile Settings</h3>
+                            <form id="profileUpdateForm" class="space-y-6">
+                                <!-- Personal Information -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                        <input type="text" id="updateName" name="fullName" 
+                                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                               placeholder="Enter your full name">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                        <input type="email" id="updateEmail" name="email" 
+                                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                               placeholder="Enter your email">
+                                    </div>
+                                </div>
+
+                                <!-- School Information -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">School Name</label>
+                                        <input type="text" id="schoolName" name="schoolName" 
+                                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                               placeholder="Enter school name">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                                        <input type="text" id="userRole" name="role" 
+                                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 bg-gray-100"
+                                               value="Admin" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Password Change -->
+                                <div class="border-t pt-6">
+                                    <h4 class="text-lg font-semibold mb-4">Change Password</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                            <input type="password" id="currentPassword" name="currentPassword" 
+                                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                                   placeholder="Enter current password">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                            <input type="password" id="newPassword" name="newPassword" 
+                                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                                                   placeholder="Enter new password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Save Button -->
+                                <div class="flex justify-end">
+                                    <button type="submit" 
+                                            class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2">
+                                        <i class="fas fa-save"></i>
+                                        <span>Save Changes</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List Classes Tab -->
+                <div id="listClasses" class="tab-content hidden">
+                    <div class="bg-white rounded-lg shadow-md">
+                        <div class="p-4 border-b flex justify-between items-center">
+                            <h2 class="text-xl font-bold">Classes List</h2>
+                            <button onclick="openTab('addClass')" 
+                                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <i class="fas fa-plus"></i>
+                                <span>Add New Class</span>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Section</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="classesList" class="divide-y divide-gray-200">
+                                    <!-- Classes will be loaded here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Class Tab -->
+                <div id="addClass" class="tab-content hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold">Add New Class</h2>
+                            <button onclick="openTab('listClasses')" 
+                                    class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="addClassForm" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Class Name</label>
+                                    <input type="text" id="className" required 
+                                           placeholder="e.g., A1, B2, B3"
+                                           pattern="^[AB][1-4]$"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <p class="mt-1 text-sm text-gray-500">Format: A1-A4 or B1-B4</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Section</label>
+                                    <select id="classSection" required
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Dooro Section-ka</option>
+                                        <option value="A">Section A</option>
+                                        <option value="B">Section B</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex justify-end space-x-4 mt-6">
+                                <button type="button" onclick="openTab('listClasses')"
+                                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                        class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex items-center space-x-2">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Add Class</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Edit Class Modal -->
+                <div id="editClassModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <h3 class="text-lg font-bold mb-4">Edit Class</h3>
+                        <form id="editClassForm" class="space-y-4">
+                            <input type="hidden" id="editClassId">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Class Name</label>
+                                <input type="text" id="editClassName" required
+                                       pattern="^[AB][1-4]$"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <p class="mt-1 text-sm text-gray-500">Format: A1-A4 or B1-B4</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Section</label>
+                                <select id="editClassSection" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">Dooro Section-ka</option>
+                                    <option value="A">Section A</option>
+                                    <option value="B">Section B</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="closeEditClassModal()"
+                                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main Application Class
+        class SchoolManagementSystem {
+            constructor() {
+                // Initialize managers
+                this.userManager = new UserManager();
+                this.studentManager = new StudentManager();
+                this.classManager = new ClassManager();
+                this.dashboardManager = new DashboardManager();
+                
+                // Check authentication
+                if (!this.userManager.isAuthenticated()) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                this.initializeEventListeners();
+                this.loadInitialData();
+            }
+
+            initializeApp() {
+                // Check authentication
+                if (!this.userManager.isAuthenticated()) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                this.initializeEventListeners();
+                this.loadInitialData();
+            }
+
+            initializeEventListeners() {
+                // Tab navigation
+                document.querySelectorAll('[onclick^="openTab"]').forEach(btn => {
+                    const tabName = btn.getAttribute('onclick').match(/'(.*?)'/)[1];
+                    btn.onclick = () => this.openTab(tabName);
+                });
+
+                // Submenu toggles
+                document.querySelectorAll('[onclick^="toggleSubmenu"]').forEach(btn => {
+                    const menuId = btn.getAttribute('onclick').match(/'(.*?)'/)[1];
+                    btn.onclick = () => this.toggleSubmenu(menuId);
+                });
+            }
+
+            loadInitialData() {
+                this.dashboardManager.initializeDashboard();
+                this.studentManager.loadStudentsList();
+                this.classManager.updateClassDropdowns();
+            }
+
+            openTab(tabName) {
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.add('hidden');
+                });
+                
+                // Show selected tab
+                const selectedTab = document.getElementById(tabName);
+                if (selectedTab) {
+                    selectedTab.classList.remove('hidden');
+                }
+                
+                // Update page title
+                document.getElementById('pageTitle').textContent = 
+                    tabName.charAt(0).toUpperCase() + tabName.slice(1).replace(/([A-Z])/g, ' $1');
+
+                // Remove active class from all buttons
+                document.querySelectorAll('.active-tab').forEach(btn => {
+                    btn.classList.remove('bg-blue-600');
+                });
+
+                // Add active class to clicked button
+                const activeButton = document.querySelector(`button[onclick="openTab('${tabName}')"]`);
+                if (activeButton) {
+                    activeButton.classList.add('bg-blue-600');
+                }
+
+                // Load specific tab data
+                if (this.tabManager) {
+                    this.tabManager.loadTabData(tabName);
+                }
+            }
+
+            toggleSubmenu(menuId) {
+                const menu = document.getElementById(menuId);
+                const icon = menu.previousElementSibling.querySelector('.fa-chevron-down');
+                const allSubmenus = document.querySelectorAll('[id$="Menu"]');
+                const allIcons = document.querySelectorAll('.fa-chevron-down');
+
+                // Close other submenus
+                allSubmenus.forEach(submenu => {
+                    if (submenu.id !== menuId && !submenu.classList.contains('hidden')) {
+                        submenu.classList.add('hidden');
+                        const submenuIcon = submenu.previousElementSibling.querySelector('.fa-chevron-down');
+                        submenuIcon.style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                // Toggle current submenu
+                menu.classList.toggle('hidden');
+                icon.style.transform = menu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+
+            closeEditModal() {
+                document.getElementById('editStudentModal').classList.add('hidden');
+            }
+
+            closeEditClassModal() {
+                document.getElementById('editClassModal').classList.add('hidden');
+            }
+
+            editStudent(studentId) {
+                const userEmail = JSON.parse(localStorage.getItem('currentUser')).email;
+                const students = JSON.parse(localStorage.getItem(`students_${userEmail}`)) || [];
+                const student = students.find(s => s.id === studentId);
+
+                if (student) {
+                    document.getElementById('editStudentId').value = student.id;
+                    document.getElementById('editStudentName').value = student.name;
+                    document.getElementById('editStudentClass').value = student.class;
+                    document.getElementById('editStudentGender').value = student.gender;
+                    document.getElementById('editParentEmail').value = student.parentEmail;
+                    
+                    document.getElementById('editStudentModal').classList.remove('hidden');
+                }
+            }
+
+            deleteStudent(studentId) {
+                if (confirm('Ma hubtaa inaad masaxdo ardaygan?')) {
+                    const userEmail = JSON.parse(localStorage.getItem('currentUser')).email;
+                    let students = JSON.parse(localStorage.getItem(`students_${userEmail}`)) || [];
+                    
+                    students = students.filter(s => s.id !== studentId);
+                    localStorage.setItem(`students_${userEmail}`, JSON.stringify(students));
+                    
+                    // Update stats and refresh table
+                    if (this.studentManager) {
+                        this.studentManager.updateStats();
+                        this.tabManager.loadStudentsData();
+                    }
+                    
+                    showNotification('Ardayga waala masaxay', 'success');
+                }
+            }
+        }
+
+        // Initialize the application
+        const app = new SchoolManagementSystem();
+
+        // Utility Functions
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } transition-opacity duration-500`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // Event Listeners for Search
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            if (query.length < 2) {
+                const existingResults = document.getElementById('searchResults');
+                if (existingResults) existingResults.remove();
+                return;
+            }
+
+            const searchResults = document.getElementById('searchResults') || createSearchResultsDropdown();
+            const results = app.studentManager.searchStudents(query)
+                .concat(app.classManager.searchClasses(query));
+            
+            displaySearchResults(searchResults, results);
+        });
+
+        function createSearchResultsDropdown() {
+            const searchInput = document.getElementById('searchInput');
+            const dropdown = document.createElement('div');
+            dropdown.id = 'searchResults';
+            dropdown.className = 'absolute top-full left-0 w-full bg-white shadow-lg rounded-b-lg max-h-96 overflow-y-auto z-50';
+            searchInput.parentElement.appendChild(dropdown);
+            return dropdown;
+        }
+
+        function displaySearchResults(container, results) {
+            container.innerHTML = results.length ? results.map(result => `
+                <div class="p-2 hover:bg-gray-100 cursor-pointer" onclick="showDetails('${result.type}', '${result.id}')">
+                    <div class="font-medium">${result.name}</div>
+                    <div class="text-sm text-gray-500">${result.type === 'student' ? `Fasalka: ${result.classroom}` : 'Fasal'}</div>
+                </div>
+            `).join('') : '<div class="p-2 text-gray-500">Wax natiijo ah lama helin</div>';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            app.loadInitialData();
+        });
+
+        // User Profile Management
+        class UserManager {
+            constructor() {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.initializeProfileListeners();
+            }
+
+            initializeProfileListeners() {
+                // Profile form update
+                document.getElementById('profileUpdateForm')?.addEventListener('submit', (e) => this.handleProfileUpdate(e));
+                
+                // Profile image upload
+                document.getElementById('profileImage')?.addEventListener('change', (e) => this.handleImageUpload(e));
+                
+                // Initialize profile data
+                this.loadProfileData();
+            }
+
+            loadProfileData() {
+                if (!this.currentUser) return;
+
+                // Load profile data into form
+                const elements = {
+                    'profileName': this.currentUser.fullName,
+                    'profileEmail': this.currentUser.email,
+                    'updateName': this.currentUser.fullName,
+                    'updateEmail': this.currentUser.email,
+                    'schoolName': this.currentUser.schoolName || '',
+                    'sidebarUsername': this.currentUser.fullName,
+                    'sidebarRole': this.currentUser.role || 'Admin'
+                };
+
+                // Update text content and input values
+                Object.entries(elements).forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (element.tagName === 'INPUT') {
+                            element.value = value;
+                        } else {
+                            element.textContent = value;
+                        }
+                    }
+                });
+
+                // Load profile image
+                this.loadProfileImage();
+            }
+
+            loadProfileImage() {
+                const imageUrl = this.currentUser.profileImage || 'default-avatar.png';
+                const imageElements = ['profilePreview', 'topProfileImage', 'sidebarProfileImage'];
+                
+                imageElements.forEach(id => {
+                    const imgElement = document.getElementById(id);
+                    if (imgElement) {
+                        imgElement.src = imageUrl;
+                        imgElement.onerror = () => {
+                            imgElement.src = 'default-avatar.png';
+                        };
+                    }
+                });
+            }
+
+            handleProfileUpdate(e) {
+                e.preventDefault();
+                
+                try {
+                    const formData = {
+                        fullName: document.getElementById('updateName').value.trim(),
+                        email: document.getElementById('updateEmail').value.trim(),
+                        schoolName: document.getElementById('schoolName').value.trim()
+                    };
+
+                    // Validate form data
+                    this.validateProfileData(formData);
+
+                    // Handle password update if provided
+                    const passwordData = this.handlePasswordUpdate();
+                    if (passwordData) {
+                        Object.assign(formData, passwordData);
+                    }
+
+                    // Update user data
+                    this.updateUserData(formData);
+
+                    // Show success message
+                    showNotification('Profile-kaaga si guul leh ayaa loo cusbooneysiiyey', 'success');
+
+                    // Clear password fields
+                    this.clearPasswordFields();
+
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                }
+            }
+
+            validateProfileData(formData) {
+                if (!formData.fullName) {
+                    throw new Error('Fadlan geli magacaaga oo buuxa');
+                }
+                if (!formData.email) {
+                    throw new Error('Fadlan geli email-kaaga');
+                }
+                if (!this.isValidEmail(formData.email)) {
+                    throw new Error('Fadlan geli email sax ah');
+                }
+                
+                // Check if email is taken by another user
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                if (users.some(user => 
+                    user.email === formData.email && 
+                    user.email !== this.currentUser.email
+                )) {
+                    throw new Error('Email-kan horey ayaa loo isticmaalay');
+                }
+            }
+
+            handlePasswordUpdate() {
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                if (currentPassword || newPassword) {
+                    if (!currentPassword) {
+                        throw new Error('Fadlan geli passwordka hadda');
+                    }
+                    if (!newPassword) {
+                        throw new Error('Fadlan geli password cusub');
+                    }
+                    if (currentPassword !== this.currentUser.password) {
+                        throw new Error('Passwordka hadda aad isticmaashid waa khalad');
+                    }
+                    return { password: newPassword };
+                }
+                return null;
+            }
+
+            updateUserData(formData) {
+                // Get all users
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === this.currentUser.email);
+
+                // Create updated user object
+                const updatedUser = {
+                    ...this.currentUser,
+                    ...formData,
+                    lastUpdated: new Date().toISOString()
+                };
+
+                // Update in users array
+                if (userIndex !== -1) {
+                    users[userIndex] = updatedUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+
+                // Update current user
+                this.currentUser = updatedUser;
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+                // Update UI
+                this.updateProfileUI(updatedUser);
+
+                // Handle email change if necessary
+                if (formData.email !== this.currentUser.email) {
+                    this.handleEmailChange(this.currentUser.email, formData.email);
+                }
+            }
+
+            handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                // Validate file type and size
+                if (!file.type.startsWith('image/')) {
+                    showNotification('Fadlan soo geli sawir kaliya', 'error');
+                    return;
+                }
+
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showNotification('Sawirka waa inuusan ka weynayn 5MB', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const imageData = event.target.result;
+                    this.updateProfileImage(imageData);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            updateProfileImage(imageData) {
+                // Update current user
+                this.currentUser.profileImage = imageData;
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+
+                // Update in users array
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === this.currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex].profileImage = imageData;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+
+                // Update UI
+                this.loadProfileImage();
+            }
+
+            updateProfileUI(userData) {
+                const elements = {
+                    'profileName': userData.fullName,
+                    'profileEmail': userData.email,
+                    'sidebarUsername': userData.fullName
+                };
+
+                Object.entries(elements).forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = value;
+                    }
+                });
+            }
+
+            handleEmailChange(oldEmail, newEmail) {
+                // Migrate user data
+                const dataTypes = ['students', 'teachers', 'classes'];
+                dataTypes.forEach(type => {
+                    const data = localStorage.getItem(`${type}_${oldEmail}`);
+                    if (data) {
+                        localStorage.setItem(`${type}_${newEmail}`, data);
+                        localStorage.removeItem(`${type}_${oldEmail}`);
+                    }
+                });
+            }
+
+            clearPasswordFields() {
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+            }
+
+            isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+        }
+
+        // Initialize UserManager
+        const userManager = new UserManager();
+
+        // Profile Manager
+        class ProfileManager {
+            constructor() {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.initializeProfile();
+                this.initializeEventListeners();
+            }
+
+            initializeProfile() {
+                if (!this.currentUser) return;
+
+                // Set profile information
+                document.getElementById('profileName').textContent = this.currentUser.fullName || 'User Name';
+                document.getElementById('profileEmail').textContent = this.currentUser.email || 'user@example.com';
+                document.getElementById('updateName').value = this.currentUser.fullName || '';
+                document.getElementById('updateEmail').value = this.currentUser.email || '';
+                document.getElementById('schoolName').value = this.currentUser.schoolName || '';
+
+                // Set profile image
+                const profileImage = this.currentUser.profileImage || 'default-avatar.png';
+                document.getElementById('profilePreview').src = profileImage;
+                document.getElementById('topProfileImage').src = profileImage;
+                document.getElementById('sidebarProfileImage').src = profileImage;
+            }
+
+            initializeEventListeners() {
+                // Profile form submission
+                document.getElementById('profileUpdateForm').addEventListener('submit', (e) => this.handleProfileUpdate(e));
+
+                // Profile image upload
+                document.getElementById('profileImage').addEventListener('change', (e) => this.handleImageUpload(e));
+            }
+
+            handleProfileUpdate(e) {
+                e.preventDefault();
+
+                try {
+                    const formData = {
+                        fullName: document.getElementById('updateName').value.trim(),
+                        email: document.getElementById('updateEmail').value.trim(),
+                        schoolName: document.getElementById('schoolName').value.trim()
+                    };
+
+                    // Validate data
+                    if (!formData.fullName) throw new Error('Fadlan geli magacaaga oo buuxa');
+                    if (!formData.email) throw new Error('Fadlan geli email-kaaga');
+                    if (!this.isValidEmail(formData.email)) throw new Error('Fadlan geli email sax ah');
+
+                    // Handle password change
+                    const currentPassword = document.getElementById('currentPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+
+                    if (currentPassword || newPassword) {
+                        if (!currentPassword) throw new Error('Fadlan geli passwordka hadda');
+                        if (!newPassword) throw new Error('Fadlan geli password cusub');
+                        if (currentPassword !== this.currentUser.password) {
+                            throw new Error('Passwordka hadda aad isticmaashid waa khalad');
+                        }
+                        formData.password = newPassword;
+                    }
+
+                    // Update user data
+                    this.updateUserData(formData);
+
+                    showNotification('Profile-kaaga si guul leh ayaa loo cusbooneysiiyey', 'success');
+                    
+                    // Clear password fields
+                    this.clearPasswordFields();
+
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                }
+            }
+
+            handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                // Validate file
+                if (!file.type.startsWith('image/')) {
+                    showNotification('Fadlan soo geli sawir kaliya', 'error');
+                    return;
+                }
+
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showNotification('Sawirka waa inuusan ka weynayn 5MB', 'error');
+                    return;
+                }
+
+                // Read and save image
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const imageData = event.target.result;
+                    this.updateProfileImage(imageData);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            updateProfileImage(imageData) {
+                // Update current user
+                this.currentUser.profileImage = imageData;
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+
+                // Update in users array
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === this.currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex].profileImage = imageData;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+
+                // Update UI
+                document.getElementById('profilePreview').src = imageData;
+                document.getElementById('topProfileImage').src = imageData;
+                document.getElementById('sidebarProfileImage').src = imageData;
+            }
+
+            updateUserData(formData) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === this.currentUser.email);
+
+                // Create updated user object
+                const updatedUser = {
+                    ...this.currentUser,
+                    ...formData,
+                    lastUpdated: new Date().toISOString()
+                };
+
+                // Update in users array
+                if (userIndex !== -1) {
+                    users[userIndex] = updatedUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+
+                // Update current user
+                this.currentUser = updatedUser;
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+                // Update UI
+                this.initializeProfile();
+            }
+
+            isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+        }
+
+        // Initialize ProfileManager when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileManager = new ProfileManager();
+        });
+
+        function initializeDashboardCharts() {
+            // Enrollment Chart
+            const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+            new Chart(enrollmentCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Ardayda Cusub',
+                        data: [65, 78, 90, 85, 95, 100],
+                        borderColor: '#3B82F6',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Attendance Chart
+            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+            new Chart(attendanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['A1', 'A2', 'A3', 'B1', 'B2', 'B3'],
+                    datasets: [{
+                        label: 'Xaadiritaanka %',
+                        data: [95, 88, 92, 85, 90, 87],
+                        backgroundColor: '#8B5CF6',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call this function when the dashboard tab is opened
+        document.addEventListener('DOMContentLoaded', initializeDashboardCharts);
+
+        // Add this JavaScript after your existing code
+        class TabManager {
+            constructor() {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.initializeTabListeners();
+            }
+
+            initializeTabListeners() {
+                // Add click listeners to all tab buttons
+                document.querySelectorAll('[onclick^="openTab"]').forEach(btn => {
+                    const tabName = btn.getAttribute('onclick').match(/'(.*?)'/)[1];
+                    btn.onclick = () => this.openTab(tabName);
+                });
+            }
+
+            openTab(tabName) {
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.add('hidden');
+                });
+
+                // Show selected tab
+                const selectedTab = document.getElementById(tabName);
+                if (selectedTab) {
+                    selectedTab.classList.remove('hidden');
+                }
+
+                // Update page title
+                document.getElementById('pageTitle').textContent = 
+                    tabName.charAt(0).toUpperCase() + tabName.slice(1).replace(/([A-Z])/g, ' $1');
+
+                // Load specific tab data
+                this.loadTabData(tabName);
+            }
+
+            loadTabData(tabName) {
+                switch(tabName) {
+                    case 'dashboard':
+                        this.loadDashboardData();
+                        break;
+                    case 'listStudents':
+                        this.loadStudentsData();
+                        break;
+                    case 'listTeachers':
+                        this.loadTeachersData();
+                        break;
+                    case 'attendance':
+                        this.loadAttendanceData();
+                        break;
+                    case 'exams':
+                        this.loadExamsData();
+                        break;
+                }
+            }
+
+            loadDashboardData() {
+                const userEmail = this.currentUser.email;
+                const stats = this.getStoredStats(userEmail);
+                
+                // Update dashboard statistics
+                document.getElementById('totalStudents').textContent = stats.totalStudents || 0;
+                document.getElementById('totalTeachers').textContent = stats.totalTeachers || 0;
+                document.getElementById('totalClasses').textContent = stats.totalClasses || 0;
+                document.getElementById('attendanceRate').textContent = `${stats.attendanceRate || 0}%`;
+                
+                // Refresh charts
+                initializeDashboardCharts();
+            }
+
+            loadStudentsData() {
+                const userEmail = this.currentUser.email;
+                const students = JSON.parse(localStorage.getItem(`students_${userEmail}`)) || [];
+                const tableBody = document.getElementById('studentsList');
+                
+                tableBody.innerHTML = students.map(student => `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">${student.id}</td>
+                        <td class="px-6 py-4">${student.name}</td>
+                        <td class="px-6 py-4">${student.class}</td>
+                        <td class="px-6 py-4">${student.level}</td>
+                        <td class="px-6 py-4">${student.grade}</td>
+                        <td class="px-6 py-4">${student.gender}</td>
+                        <td class="px-6 py-4">
+                            <button onclick="editStudent('${student.id}')" class="text-blue-500 hover:text-blue-700 mr-2">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteStudent('${student.id}')" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            loadTeachersData() {
+                const userEmail = this.currentUser.email;
+                const teachers = JSON.parse(localStorage.getItem(`teachers_${userEmail}`)) || [];
+                // Similar to loadStudentsData but for teachers
+            }
+
+            loadAttendanceData() {
+                const userEmail = this.currentUser.email;
+                const attendance = JSON.parse(localStorage.getItem(`attendance_${userEmail}`)) || [];
+                // Load attendance data
+            }
+
+            loadExamsData() {
+                const userEmail = this.currentUser.email;
+                const exams = JSON.parse(localStorage.getItem(`exams_${userEmail}`)) || [];
+                // Load exams data
+            }
+
+            getStoredStats(userEmail) {
+                return JSON.parse(localStorage.getItem(`stats_${userEmail}`)) || {
+                    totalStudents: 0,
+                    totalTeachers: 0,
+                    totalClasses: 0,
+                    attendanceRate: 0
+                };
+            }
+        }
+
+        // Data Management Classes
+        class StudentManager {
+            constructor() {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            }
+
+            addStudent(studentData) {
+                const userEmail = this.currentUser.email;
+                const students = JSON.parse(localStorage.getItem(`students_${userEmail}`)) || [];
+                
+                const newStudent = {
+                    id: this.generateId(),
+                    ...studentData,
+                    createdAt: new Date().toISOString()
+                };
+
+                students.push(newStudent);
+                localStorage.setItem(`students_${userEmail}`, JSON.stringify(students));
+                this.updateStats();
+                showNotification('Ardayga waala diiwaangeliyey', 'success');
+            }
+
+            generateId() {
+                return 'STD' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            }
+
+            updateStats() {
+                const userEmail = this.currentUser.email;
+                const stats = JSON.parse(localStorage.getItem(`stats_${userEmail}`)) || {};
+                const students = JSON.parse(localStorage.getItem(`students_${userEmail}`)) || [];
+                
+                stats.totalStudents = students.length;
+                localStorage.setItem(`stats_${userEmail}`, JSON.stringify(stats));
+            }
+        }
+
+        class TeacherManager {
+            // Similar to StudentManager but for teachers
+        }
+
+        class AttendanceManager {
+            constructor() {
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            }
+
+            markAttendance(attendanceData) {
+                const userEmail = this.currentUser.email;
+                const attendance = JSON.parse(localStorage.getItem(`attendance_${userEmail}`)) || [];
+                
+                attendance.push({
+                    ...attendanceData,
+                    date: new Date().toISOString()
+                });
+
+                localStorage.setItem(`attendance_${userEmail}`, JSON.stringify(attendance));
+                this.updateAttendanceRate();
+            }
+
+            updateAttendanceRate() {
+                // Calculate and update attendance rate
+            }
+        }
+
+        class ExamManager {
+            // Handle exam-related operations
+        }
+
+        // Initialize managers
+        const tabManager = new TabManager();
+        const studentManager = new StudentManager();
+        const teacherManager = new TeacherManager();
+        const attendanceManager = new AttendanceManager();
+        const examManager = new ExamManager();
+
+        // Form Submission Handlers
+        document.getElementById('addStudentForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const studentData = {
+                name: document.getElementById('studentName').value,
+                grade: document.getElementById('studentGrade').value,
+                class: document.getElementById('studentClassroom').value,
+                gender: document.getElementById('studentGender').value,
+                parentEmail: document.getElementById('parentEmail').value
+            };
+
+            studentManager.addStudent(studentData);
+            this.reset();
+            tabManager.loadStudentsData();
+        });
+
+        // Add similar event listeners for other forms (teachers, attendance, exams)
+
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            tabManager.loadDashboardData();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Form Design1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(to bottom, #ff00ff, #4169e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 5px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .container form .form_group {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f1f1f1;
+            width: 100%;
+            padding: 12px 10px;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .container form .form_group .icon {
+            color: #838282;
+        }
+
+        .container form .form_group:focus-within {
+            border: 1px solid #ff00ff;
+        }
+        .container form .form_group input {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: #1c1c1c;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .container .check {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: transparent;
+            margin-top: 15px;
+        }
+
+        .container .check input[type="checkbox"] {
+            accent-color: #ff00ff;
+        }
+
+        .container .check span {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .container .form_group.button {
+            background-color:#ff00ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .container .form_group.button:hover {
+            background-color: #ff00ff92;
+        }
+
+        .container .form_group.button button {
+            border: none;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .container .footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .container .footer h4 {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .container .footer .socials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .container .footer .socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-decoration: none;
+            width: 100%;
+            color: #333;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .container .footer .socials a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container .footer .socials img {
+            width: 18px;
+        }
+
+        .container .last_footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container .last_footer a {
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            color: #ff00ff93;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .container .last_footer a:hover {
+            color: #ff00ff5f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h2>LOGIN</h2>
+        <form>
+            <div class="form_group">
+                <i class="fa fa-envelope icon"></i>
+                <input type="text" placeholder="Email">
+            </div>
+            <div class="form_group">
+                <i class="fa fa-lock icon"></i>
+                <input type="password" placeholder="Password">
+            </div>
+            <div class="check">
+                <input type="checkbox">
+                <span>Remember me</span>
+            </div>
+            <div class="form_group button">
+                <button>LOGIN</button>
+            </div>
+            <div class="footer">
+                <h4>Or login with</h4>
+                <div class="socials">
+                    <a href="#">
+                        <img src="images/Facebook.png" alt="Facebook">
+                        Facebook
+                    </a>
+                    <a href="#">
+                        <img src="images/Google.png" alt="Google">
+                        Google
+                    </a>
+                </div>
+            </div>
+            <div class="last_footer">
+                <a href="#">Not a member? Sign up now</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

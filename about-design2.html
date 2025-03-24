@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Design2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #849fc7;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+        }
+        .left{
+            flex: 1 1 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .left .left_tittle{
+            position: relative;
+            margin-bottom: 50px;
+            color: #fff;
+
+        }
+        .left_tittle::before{
+            content: '';
+            position: absolute;
+            left: -20px;
+            width: 10px;
+            height: 100%;
+            background:linear-gradient(to bottom, rgba(237, 20, 20), rgba(237, 20, 20, 0.451));
+        }
+        .left .left_tittle h6{
+            margin-bottom: 10px;
+            font-weight: 200;
+            color: rgba(255,255,255,0.5);
+        }
+        .left .left_tittle h2{
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .left .left_tittle span{
+            color: rgb(237, 20, 20);
+        }
+        .left img{
+            width: 100%;
+            max-width: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .right{
+            flex: 1 1 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+
+        }
+        .right .right_imgs{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .right .right_imgs .imgbox{
+            width: 280px;
+            height: 150px;
+            position: relative;
+            border-radius: 15px;
+        }
+        .right .right_imgs .imgbox img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .right .right_imgs .imgbox .overlay{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            padding: 0.5rem 0.8rem;
+            text-align: right;
+            background: rgba(0,0,0,0.2);
+        }
+        .right .right_imgs .imgbox .overlay a{
+            text-decoration: none;
+            border: 1px solid #ccc;
+            background: #333;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+        .right .right_content{
+            margin-top: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        .right .right_content p{
+            font-size: 0.6rem;
+            text-align: justify;
+            color: #fff;
+        }
+        .right .right_tools{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 15px;
+
+        }
+        .right .right_tools .box{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            color: #fff;
+        }
+        .right .right_tools .box h3{
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        .right .right_tools .box span{
+            font-weight: 500;
+            font-size: 0.85rem;
+
+        }
+        .right .right_bottom{
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            width: 100%;
+
+        }
+        .right .right_bottom .imgs{
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .right .right_bottom .imgs img{
+            width: 35;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .right .right_bottom .imgs img:nth-child(2){
+            position: absolute;
+            left: 25px;
+            z-index: 1;
+        }
+        .right .right_bottom .imgs img:nth-child(3){
+            position: absolute;
+            left: 50px;
+            z-index: 1;
+        }
+        .right .right_bottom a{
+            text-decoration: none;
+            padding: 0.3rem 0.8rem;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="left_tittle">
+                <h6>OUR STORY</h6>
+                <h2>Your Vision Our Expertise Your <br> Success Get Noticed Generate <br> <span>Leads Dominate</span>
+                </h2>
+            </div>
+            <img src="images/img1.jpg">
+
+        </div>
+        <div class="right">
+            <div class="right_imgs">
+                <div class="imgbox">
+                    <img src="images/img2.jpg" width="50px">
+                    <div class="overlay">
+                        <a href="#">Tech Blog</a>
+                        <a href="#">Trends</a>
+                    </div>
+                </div>
+
+                <div class="imgbox">
+                    <img src="images/img3.jpg" width="50px">
+                    <div class="overlay">
+                        <a href="#">Tech Blog</a>
+                        <a href="#">Trends</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right_content">
+                <p>Lorem ipsum dolor sit amet consecteturtetur adipisicing elit. Eius molestias doloribus est aut ratione voluptas. Consequatur repellendus facilis quidem cumque odio optio facere velit beatae laborum, nam earum error temporibus adipisicing elit. Eius molestias doloribus est aut ratione voluptas. Consequatur repellendus facilis quidem cumque odio optio facere velit beatae laborum, nam earum error temporibus.</p>
+            </div>
+
+            <div class="right_tools">
+                <div class="box">
+                    <h3>10K+</h3>
+                    <span>Completed Projects</span>
+                </div>
+                <div class="box">
+                    <h3>15K+</h3>
+                    <span>Satisfied Customers</span>
+                </div>
+                <div class="box">
+                    <h3>10K+</h3>
+                    <span>Years Of Mastery</span>
+                </div>
+                <div class="box">
+                    <h3>40K+</h3>
+                    <span>Worldwide Honors</span>
+                </div>
+            </div>
+
+            <div class="right_bottom">
+                <div class="imgs">
+                    <img src="images/img4.jpg" width="50px">
+                    <img src="images/France.jpg" width="50px">
+                    <img src="images/America.jpg" width="50px">
+                </div>
+                <a href="#">Watch Intro</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
